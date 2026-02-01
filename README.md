@@ -1,2 +1,8 @@
 # node_js_API
-A simple RESTful API built using Node.js and Express.js for handling backend operations
+
+
+Simple RESTful API built with:
+- Node.js
+- Express.js
+
+Used for learning and practicing backend development.
