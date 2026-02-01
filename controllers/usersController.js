@@ -1,8 +1,12 @@
 const asyncWrapper = require("../middlewares/asyncWrapper");
 const User = require('../models/user.model');
 const httpStatusText = require('../utils/httpStatusText');
-const AppError = require('../utils/AppError')
+const AppError = require('../utils/AppError');
 const bcrypt = require('bcryptjs');
+const generateJWT = require("../utils/generateJWT");
+require('dotenv').config();
+
+
 
 
 
@@ -11,7 +15,6 @@ const bcrypt = require('bcryptjs');
 
 const getAllUsers = asyncWrapper(async (req, res) => {
   const query = req.query;
-  console.log(query);
   const limit = query.limit || 10;
   const page = query.page || 1;
   const skip = (page - 1) * limit;
@@ -47,7 +50,12 @@ const register = asyncWrapper(async (req, res,next) => {
         email,
         password: hashedPassword
     })
+  
 
+  //generate JWT token??
+  const token = await generateJWT({email: newUser.email, id: newUser._id})
+  newUser.token = token;
+  
     await newUser.save();
    res.status(201).json({
        status: httpStatusText.SUCCESS,
@@ -74,9 +82,11 @@ const login = asyncWrapper(async (req, res, next) => {
     return next(new AppError('Incorrect password!', 401, httpStatusText.FAIL));
   }
 
+  //token ??? JWT
+   const token = await generateJWT({email: user.email, id: user._id})
   res.status(200).json({
     status: httpStatusText.SUCCESS,
-    data: { message: "Logged in successfully!" }
+    data: { token }
   });
 });
 

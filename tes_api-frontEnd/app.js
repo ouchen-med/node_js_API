@@ -4,3 +4,5 @@ fetch('http://localhost:5000/api/courses')
     .then((data) => {
         console.log(data)
     })
+
+  

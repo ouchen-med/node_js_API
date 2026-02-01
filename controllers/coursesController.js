@@ -7,7 +7,6 @@ const AppError = require('../utils/AppError')
 
 const getAllCourses = asyncWrapper(async (req, res) => {
   const query = req.query;
-  console.log(query);
   const limit = query.limit || 10;
   const page = query.page || 1;
   const skip = (page - 1) * limit;

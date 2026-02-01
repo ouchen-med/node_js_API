@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/usersController')
+const verifyToken = require('../models/verifyToken')
 //get all users:
 router.route('/')
-    .get(usersController.getAllUsers)
+    .get(verifyToken,usersController.getAllUsers)
    
 //register:
 router.route('/regester')
