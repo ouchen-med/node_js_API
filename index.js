@@ -12,9 +12,11 @@ mongoose.connect(url).then(() => {
 
 //CRUD :
 const coursesRouter = require('./routes/coursesRoute');
+const usersRouter = require('./routes/users.route')
 app.use(cors());
 
-app.use('/api/courses', coursesRouter)
+app.use('/api/courses', coursesRouter)//api courses
+app.use('/api/users', usersRouter)// api users
 // global meddlware for not found routes
 app.use((req,res) => {
   res.status(404).json({
@@ -29,7 +31,7 @@ app.use((error, req, res, next) => {
   res.status(error.statusCode || 500).json({
     status: error.statusText || httpStatusText.ERROR,
     message: error.message,
-    code: error.statusCode || 500,  // ✅ تصحيح الخطأ الإملائي
+    code: error.statusCode || 500,  
     data: null
   });
 });
