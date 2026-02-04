@@ -8,13 +8,13 @@ const allowedTo = require('../middlewares/allowedTo');
 
 //courses Routes:
 router.route('/')
-  .get(coursesController.getAllCourses)
+  .get(verifyToken,allowedTo(userRoles.USER,userRoles.ADMIN,userRoles.MANAGER),coursesController.getAllCourses)
 
-  .post(verifyToken,validationShema(),coursesController.addCourse)
+  .post(verifyToken,allowedTo(userRoles.ADMIN, userRoles.MANAGER),validationShema(),coursesController.addCourse)
 
 router.route('/:courseId')
-  .get(coursesController.getCourse)
-  .patch(coursesController.updateCourse)
+  .get(verifyToken,allowedTo(userRoles.USER,userRoles.ADMIN,userRoles.MANAGER),coursesController.getCourse)
+  .patch(verifyToken,allowedTo(userRoles.ADMIN,userRoles.MANAGER),coursesController.updateCourse)
   .delete(verifyToken, allowedTo(userRoles.ADMIN) ,coursesController.delteCourse)
 
 
