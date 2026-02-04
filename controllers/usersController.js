@@ -36,7 +36,7 @@ const getAllUsers = asyncWrapper(async (req, res) => {
 });
 
 const register = asyncWrapper(async (req, res,next) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, role} = req.body;
     const oldUser = await User.findOne({ email: email });
     if (oldUser) {
         return next(new AppError('Email already exists!', 400, httpStatusText.FAIL));
@@ -48,12 +48,13 @@ const register = asyncWrapper(async (req, res,next) => {
         firstName,
         lastName,
         email,
-        password: hashedPassword
+        password: hashedPassword,
+        role
     })
   
 
   //generate JWT token??
-  const token = await generateJWT({email: newUser.email, id: newUser._id})
+  const token = await generateJWT({email: newUser.email, id: newUser._id, role: newUser.role})
   newUser.token = token;
   
     await newUser.save();
