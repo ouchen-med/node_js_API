@@ -17,17 +17,15 @@ const verifyToken = (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
-    req.user = decodedToken;
+    req.currentUser = decodedToken;
     return next();
   } catch (err) {
-    // Handle specific JWT errors
     let errorMessage = 'Invalid token';
     let statusCode = 401;
     
     if (err.name === 'TokenExpiredError') {
       errorMessage = 'Token has expired. Please login again.';
-      // You could return 403 for expired tokens if you want to differentiate
-      // statusCode = 403;
+      
     } else if (err.name === 'JsonWebTokenError') {
       errorMessage = 'Invalid token signature';
     }

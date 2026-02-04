@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/usersController')
-const verifyToken = require('../models/verifyToken')
+const verifyToken = require('../middlewares/verifyToken')
 //get all users:
 router.route('/')
     .get(verifyToken,usersController.getAllUsers)

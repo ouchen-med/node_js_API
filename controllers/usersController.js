@@ -84,7 +84,7 @@ const login = asyncWrapper(async (req, res, next) => {
   }
 
   //token ??? JWT
-   const token = await generateJWT({email: user.email, id: user._id})
+   const token = await generateJWT({email: user.email, id: user._id, role: user.role})
   res.status(200).json({
     status: httpStatusText.SUCCESS,
     data: { token }
