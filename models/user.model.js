@@ -30,7 +30,11 @@ const userSchema = new mongoose.Schema({
         type: String, //[USER,ADMIN,MANAGER]
         enum: [userRoles.USER, userRoles.ADMIN, userRoles.MANAGER],
         default: userRoles.USER
-    }
+    },
+    avatar: {
+    type: String, 
+    default: '../uploads/profile.jpg'
+  }
     
 })
 
