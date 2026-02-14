@@ -33,7 +33,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
     type: String, 
-    default: '../uploads/profile.jpg'
+    default: '../uploads/profile.webp'
   }
     
 })

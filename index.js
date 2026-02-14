@@ -1,9 +1,12 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path')
 const httpStatusText = require('./utils/httpStatusText');
 const cors = require('cors')
 const app = express();
 app.use(express.json());
+//imgs?
+app.use('/uploads',express.static(path.join(__dirname,'uploads')))
 const mongoose = require('mongoose');
 const url = process.env.MONGO_URL;
 mongoose.connect(url).then(() => {
